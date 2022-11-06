@@ -1,18 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Diamond : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
+    
+    [SerializeField] private GameManager gameManager;
+    [SerializeField] private float rotationSpeed = .5f;
+    
     void Update()
     {
-        
+        transform.Rotate(0, 0, rotationSpeed);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            gameManager.CollectDiamond();
+            Destroy(gameObject);
+        }
     }
 }
